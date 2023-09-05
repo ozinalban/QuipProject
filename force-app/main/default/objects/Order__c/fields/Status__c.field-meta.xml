@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Status__c</fullName>
-    <description>Status of the Order Record</description>
     <externalId>false</externalId>
+    <inlineHelpText>Status of the Order Record</inlineHelpText>
     <label>Status</label>
     <required>false</required>
     <trackHistory>false</trackHistory>
@@ -28,9 +28,14 @@
                 <label>Dispatched</label>
             </value>
             <value>
-                <fullName>Shipped, Out for Delivery</fullName>
+                <fullName>Shipped</fullName>
                 <default>false</default>
-                <label>Shipped, Out for Delivery</label>
+                <label>Shipped</label>
+            </value>
+            <value>
+                <fullName>Out for Delivery</fullName>
+                <default>false</default>
+                <label>Out for Delivery</label>
             </value>
             <value>
                 <fullName>Delivered</fullName>

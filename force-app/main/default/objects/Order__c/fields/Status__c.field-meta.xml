@@ -62,6 +62,12 @@
                 <default>false</default>
                 <label>Cancelled</label>
             </value>
+            <value>
+                <fullName>Shipped, Out for Delivery</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Shipped, Out for Delivery</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

@@ -6,7 +6,6 @@
     <inlineHelpText>Parent Account related to customer</inlineHelpText>
     <label>Account Name</label>
     <referenceTo>Account</referenceTo>
-    <relationshipLabel>Orders</relationshipLabel>
     <relationshipName>Orders</relationshipName>
     <required>false</required>
     <trackHistory>false</trackHistory>

@@ -1,0 +1,10 @@
+<template>
+    <lightning-card title="Category Tree Grid">
+        <lightning-tree-grid key-field="name" columns={columns} data={formattedData}></lightning-tree-grid>
+    </lightning-card>
+    <lightning-card>
+        <template for:each={formattedData} for:item="category">
+            <p key={category.name}>{category.name}</p>
+        </template>
+    </lightning-card>
+</template>

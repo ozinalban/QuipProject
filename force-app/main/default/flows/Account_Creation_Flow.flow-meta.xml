@@ -3,8 +3,8 @@
     <actionCalls>
         <name>AutoResponse_for_New_Account_Request</name>
         <label>AutoResponse for New Account Request</label>
-        <locationX>480</locationX>
-        <locationY>479</locationY>
+        <locationX>182</locationX>
+        <locationY>431</locationY>
         <actionName>emailSimple</actionName>
         <actionType>emailSimple</actionType>
         <connector>
@@ -41,8 +41,8 @@
     <actionCalls>
         <name>Send_Email_to_Customer_After_Rejection_of_Request</name>
         <label>Send Email to Customer After Rejection of Request</label>
-        <locationX>612</locationX>
-        <locationY>1211</locationY>
+        <locationX>314</locationX>
+        <locationY>1163</locationY>
         <actionName>emailSimple</actionName>
         <actionType>emailSimple</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -76,8 +76,8 @@
     <actionCalls>
         <name>Send_Email_to_Customer_upon_Account_Creation</name>
         <label>Send Email to Customer upon Account Creation</label>
-        <locationX>348</locationX>
-        <locationY>1427</locationY>
+        <locationX>50</locationX>
+        <locationY>1379</locationY>
         <actionName>emailSimple</actionName>
         <actionType>emailSimple</actionType>
         <connector>
@@ -114,8 +114,8 @@
     <actionCalls>
         <name>SubmitForApproval</name>
         <label>SubmitForApproval</label>
-        <locationX>480</locationX>
-        <locationY>911</locationY>
+        <locationX>182</locationX>
+        <locationY>863</locationY>
         <actionName>submit</actionName>
         <actionType>submit</actionType>
         <connector>
@@ -148,8 +148,8 @@
     <assignments>
         <name>addManagerIDToCollection</name>
         <label>addManagerIDToCollection</label>
-        <locationX>480</locationX>
-        <locationY>803</locationY>
+        <locationX>182</locationX>
+        <locationY>755</locationY>
         <assignmentItems>
             <assignToReference>ManagerIDs</assignToReference>
             <operator>Add</operator>
@@ -165,8 +165,8 @@
         <description>If Account Request newly created, send an email to the Customer, stating that Account creation request is in review.</description>
         <name>isAccountRequestNew</name>
         <label>isAccountRequestNew</label>
-        <locationX>612</locationX>
-        <locationY>371</locationY>
+        <locationX>314</locationX>
+        <locationY>323</locationY>
         <defaultConnector>
             <targetReference>RequestApprovedOrRejected</targetReference>
         </defaultConnector>
@@ -197,8 +197,8 @@
     <decisions>
         <name>RequestApprovedOrRejected</name>
         <label>RequestApproved/Rejected</label>
-        <locationX>612</locationX>
-        <locationY>1103</locationY>
+        <locationX>314</locationX>
+        <locationY>1055</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Approved</name>
@@ -247,9 +247,19 @@
     </decisions>
     <environments>Default</environments>
     <formulas>
+        <name>alias</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!$Record.First_Name__c}, 1) + &quot;.&quot; + LEFT({!$Record.Last_Name__c},6)</expression>
+    </formulas>
+    <formulas>
         <name>isNew</name>
         <dataType>Boolean</dataType>
         <expression>ISNEW()</expression>
+    </formulas>
+    <formulas>
+        <name>userName</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!$Record.First_Name__c},1) + &apos;.&apos; + {!$Record.Last_Name__c} + TEXT(MONTH(TODAY()) ) + TEXT( YEAR (TODAY( ) )) + &apos;@ebike.com&apos;</expression>
     </formulas>
     <interviewLabel>Account Creation Flow {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Account Creation Flow</label>
@@ -262,7 +272,7 @@
     <processMetadataValues>
         <name>CanvasMode</name>
         <value>
-            <stringValue>FREE_FORM_CANVAS</stringValue>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
         </value>
     </processMetadataValues>
     <processMetadataValues>
@@ -275,8 +285,8 @@
     <recordCreates>
         <name>Create_Account_for_Approved_Request</name>
         <label>Create Account for Approved Request</label>
-        <locationX>348</locationX>
-        <locationY>1211</locationY>
+        <locationX>50</locationX>
+        <locationY>1163</locationY>
         <assignRecordIdToReference>newAccountID</assignRecordIdToReference>
         <connector>
             <targetReference>Create_Contact_for_Approved_Request</targetReference>
@@ -368,18 +378,103 @@
         <object>Account</object>
     </recordCreates>
     <recordCreates>
-        <name>Create_Community_User</name>
-        <label>Create Community User</label>
-        <locationX>682</locationX>
-        <locationY>1423</locationY>
+        <name>Create_Community_Contact_User</name>
+        <label>Create Community Contact User</label>
+        <locationX>50</locationX>
+        <locationY>1595</locationY>
+        <inputAssignments>
+            <field>Alias</field>
+            <value>
+                <elementReference>alias</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CommunityNickname</field>
+            <value>
+                <elementReference>$Record.PrimaryEmail__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CompanyName</field>
+            <value>
+                <elementReference>$Record.Name</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ContactId</field>
+            <value>
+                <elementReference>newContactID</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Email</field>
+            <value>
+                <elementReference>$Record.PrimaryEmail__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>EmailEncodingKey</field>
+            <value>
+                <stringValue>UTF-8</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>FirstName</field>
+            <value>
+                <elementReference>$Record.First_Name__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>LanguageLocaleKey</field>
+            <value>
+                <stringValue>en_US</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>LastName</field>
+            <value>
+                <elementReference>$Record.Last_Name__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>LocaleSidKey</field>
+            <value>
+                <stringValue>en_US</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>PortalRole</field>
+            <value>
+                <stringValue>Worker</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ProfileId</field>
+            <value>
+                <elementReference>Get_Community_User_Profile.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>TimeZoneSidKey</field>
+            <value>
+                <stringValue>Europe/Zurich</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Username</field>
+            <value>
+                <elementReference>userName</elementReference>
+            </value>
+        </inputAssignments>
         <object>User</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
     <recordCreates>
         <name>Create_Contact_for_Approved_Request</name>
         <label>Create Contact for Approved Request</label>
-        <locationX>348</locationX>
-        <locationY>1319</locationY>
+        <locationX>50</locationX>
+        <locationY>1271</locationY>
+        <assignRecordIdToReference>newContactID</assignRecordIdToReference>
         <connector>
             <targetReference>Send_Email_to_Customer_upon_Account_Creation</targetReference>
         </connector>
@@ -450,14 +545,16 @@
             </value>
         </inputAssignments>
         <object>Contact</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
     <recordLookups>
         <name>Get_Community_User_Profile</name>
         <label>Get Community User Profile</label>
-        <locationX>520</locationX>
-        <locationY>1423</locationY>
+        <locationX>50</locationX>
+        <locationY>1487</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Create_Community_Contact_User</targetReference>
+        </connector>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Name</field>
@@ -473,8 +570,8 @@
     <recordLookups>
         <name>getManagerID</name>
         <label>getManagerID</label>
-        <locationX>480</locationX>
-        <locationY>587</locationY>
+        <locationX>182</locationX>
+        <locationY>539</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>getManagerIDFromPublicGroup</targetReference>
@@ -501,8 +598,8 @@
     <recordLookups>
         <name>getManagerIDFromPublicGroup</name>
         <label>getManagerIDFromPublicGroup</label>
-        <locationX>480</locationX>
-        <locationY>695</locationY>
+        <locationX>182</locationX>
+        <locationY>647</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>addManagerIDToCollection</targetReference>
@@ -520,8 +617,8 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <start>
-        <locationX>486</locationX>
-        <locationY>48</locationY>
+        <locationX>188</locationX>
+        <locationY>0</locationY>
         <connector>
             <targetReference>isAccountRequestNew</targetReference>
         </connector>
@@ -529,7 +626,7 @@
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <textTemplates>
         <name>AccountCreationNotificationEmailBody</name>
         <isViewedAsPlainText>false</isViewedAsPlainText>
@@ -554,6 +651,13 @@
     </variables>
     <variables>
         <name>newAccountID</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>newContactID</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>

@@ -2,7 +2,8 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Product_vr</fullName>
     <active>true</active>
-    <errorConditionFormula>NOT( ISBLANK(Product__c) )</errorConditionFormula>
+    <description>Product field is required</description>
+    <errorConditionFormula>ISBLANK(Product__c)</errorConditionFormula>
     <errorDisplayField>Product__c</errorDisplayField>
-    <errorMessage>This will be made required from the Validation Rule</errorMessage>
+    <errorMessage>Product field is required</errorMessage>
 </ValidationRule>

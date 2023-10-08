@@ -155,9 +155,10 @@
     <externalSharingModel>ControlledByParent</externalSharingModel>
     <label>Product Offer</label>
     <nameField>
+        <displayFormat>PO-{00000}</displayFormat>
         <label>Product Offer</label>
         <trackHistory>false</trackHistory>
-        <type>Text</type>
+        <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Product Offers</pluralLabel>
     <searchLayouts></searchLayouts>

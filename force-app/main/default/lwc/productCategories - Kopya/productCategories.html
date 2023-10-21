@@ -1,0 +1,5 @@
+<template>
+    <lightning-card title="Filter Products">
+        <lightning-tree-grid key-field="id" columns={columns} data={categoryTree} selected-rows={selectedRows} onrowselection={handleRowSelection} ontoggle={handleToggle}></lightning-tree-grid>
+    </lightning-card>
+</template>

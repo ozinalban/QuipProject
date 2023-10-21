@@ -8,7 +8,7 @@
         <actionName>emailSimple</actionName>
         <actionType>emailSimple</actionType>
         <connector>
-            <targetReference>getManagerID</targetReference>
+            <targetReference>getManagerIDFromPublicGroup</targetReference>
         </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
@@ -42,7 +42,7 @@
         <name>Send_Email_to_Customer_After_Rejection_of_Request</name>
         <label>Send Email to Customer After Rejection of Request</label>
         <locationX>314</locationX>
-        <locationY>1163</locationY>
+        <locationY>1055</locationY>
         <actionName>emailSimple</actionName>
         <actionType>emailSimple</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -77,7 +77,7 @@
         <name>Send_Email_to_Customer_upon_Account_Creation</name>
         <label>Send Email to Customer upon Account Creation</label>
         <locationX>50</locationX>
-        <locationY>1379</locationY>
+        <locationY>1271</locationY>
         <actionName>emailSimple</actionName>
         <actionType>emailSimple</actionType>
         <connector>
@@ -115,7 +115,7 @@
         <name>SubmitForApproval</name>
         <label>SubmitForApproval</label>
         <locationX>182</locationX>
-        <locationY>863</locationY>
+        <locationY>755</locationY>
         <actionName>submit</actionName>
         <actionType>submit</actionType>
         <connector>
@@ -149,7 +149,7 @@
         <name>addManagerIDToCollection</name>
         <label>addManagerIDToCollection</label>
         <locationX>182</locationX>
-        <locationY>755</locationY>
+        <locationY>647</locationY>
         <assignmentItems>
             <assignToReference>ManagerIDs</assignToReference>
             <operator>Add</operator>
@@ -198,7 +198,7 @@
         <name>RequestApprovedOrRejected</name>
         <label>RequestApproved/Rejected</label>
         <locationX>314</locationX>
-        <locationY>1055</locationY>
+        <locationY>947</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Approved</name>
@@ -286,7 +286,7 @@
         <name>Create_Account_for_Approved_Request</name>
         <label>Create Account for Approved Request</label>
         <locationX>50</locationX>
-        <locationY>1163</locationY>
+        <locationY>1055</locationY>
         <assignRecordIdToReference>newAccountID</assignRecordIdToReference>
         <connector>
             <targetReference>Create_Contact_for_Approved_Request</targetReference>
@@ -381,7 +381,7 @@
         <name>Create_Community_Contact_User</name>
         <label>Create Community Contact User</label>
         <locationX>50</locationX>
-        <locationY>1595</locationY>
+        <locationY>1487</locationY>
         <inputAssignments>
             <field>Alias</field>
             <value>
@@ -473,7 +473,7 @@
         <name>Create_Contact_for_Approved_Request</name>
         <label>Create Contact for Approved Request</label>
         <locationX>50</locationX>
-        <locationY>1271</locationY>
+        <locationY>1163</locationY>
         <assignRecordIdToReference>newContactID</assignRecordIdToReference>
         <connector>
             <targetReference>Send_Email_to_Customer_upon_Account_Creation</targetReference>
@@ -550,7 +550,7 @@
         <name>Get_Community_User_Profile</name>
         <label>Get Community User Profile</label>
         <locationX>50</locationX>
-        <locationY>1487</locationY>
+        <locationY>1379</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Create_Community_Contact_User</targetReference>
@@ -568,38 +568,10 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
-        <name>getManagerID</name>
-        <label>getManagerID</label>
-        <locationX>182</locationX>
-        <locationY>539</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>getManagerIDFromPublicGroup</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>FirstName</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>High</stringValue>
-            </value>
-        </filters>
-        <filters>
-            <field>LastName</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>Manager</stringValue>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>User</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
         <name>getManagerIDFromPublicGroup</name>
         <label>getManagerIDFromPublicGroup</label>
         <locationX>182</locationX>
-        <locationY>647</locationY>
+        <locationY>539</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>addManagerIDToCollection</targetReference>
@@ -635,7 +607,7 @@
     <textTemplates>
         <name>autoResponseBody</name>
         <isViewedAsPlainText>false</isViewedAsPlainText>
-        <text>&lt;p&gt;Dear {!$Record.First_Name__c},&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Thank you for contacting with us. Your request is in review.&lt;/p&gt;&lt;p&gt;We will give information about the updates in 72 hours.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Best Regards,&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;E-bike Store&lt;/p&gt;</text>
+        <text>&lt;p&gt;Dear {!$Record.First_Name__c},&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Bizimle iletişime geçtiğiniz için teşekkür ederiz. Ekiplerimiz talebinizle en kısa sürede ilgilenip size dönüş sağlayacaktır.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Best Regards,&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;E-bike Store&lt;/p&gt;</text>
     </textTemplates>
     <textTemplates>
         <name>rejectionEmailBody</name>

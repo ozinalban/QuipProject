@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
   <types>
-    <members>ApexClassTest</members>
+    <members>ProductCategoriesController</members>
     <name>ApexClass</name>
   </types>
   <types>
@@ -58,6 +58,11 @@
   </types>
   <types>
     <members>Account_Creation_Flow</members>
+    <members>CartItem_Before_Save_Flow</members>
+    <members>Order_After_Insert_Flow</members>
+    <members>OrderLineItem_Before_Save_Flow</members>
+    <members>Order_Line_Item_After_Save_Flow</members>
+    <members>Order_Line_Item_Delete_Flow</members>
     <name>Flow</name>
   </types>
   <types>

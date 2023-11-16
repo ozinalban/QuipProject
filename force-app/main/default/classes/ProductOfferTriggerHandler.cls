@@ -7,6 +7,7 @@ public class ProductOfferTriggerHandler {
     }
 
     public static void sendEmailForNewProductOffer (List<ProductOffer__c>  newList) {
+        if(Limit.getLimitEmailInvocations() < 1) return;
         List<ProductOffer__c> offersWithRelatedObj = getOffersWithRelatedObjects(newList);
         List<User> customers = getCustomers();
 
@@ -23,7 +24,7 @@ public class ProductOfferTriggerHandler {
         Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
         List<String> emailAddresses = new List<String>();
         String htmlEmailBody = '<h1 style="color: red; text-align: center;">New Discount Available For You!</h1>'+
-                            '<h2 style="text-align: center;">There is a limited stock. Hurry up!</h2>';
+                            '<h2 style="text-align: center;">Stocks are limited. Hurry up!</h2>';
 
         // Set the Recipient Emails
         for (User u:customers){
@@ -44,18 +45,19 @@ public class ProductOfferTriggerHandler {
     }
 
      /***********************  HELPER METHODS *****************/
-     
+
     private static String getOfferHTMLBody (List<ProductOffer__c> offersWithRelatedObj, Map<Id, Double> listPriceMapByProductId, Map<Id, Double> discountMapByOfferId, Map<Id, String> imageUrlMapByProductId, String htmlEmailBody){
         for(ProductOffer__c offer:offersWithRelatedObj){
+            String productLink = Url.getOrgDomainUrl().toExternalForm() + '/lightning/r/Product2/' + offer.Product__c + '/view';
             htmlEmailBody += 
             '<div style="display: flex; border: 1px solid #ccc; margin: 10px 0;">' +
                 '<div style="flex: 1; padding: 30px; order: 1; width: 30%;">'+
-                    '<p style="font-size: 2rem;>' + offer.Product__r.Name + '</p> <br/>'+
+                    '<p style="font-size: 2rem;">' + offer.Product__r.Name + '</p> <br/>'+
                     '<p style="font-size: 1.5rem; color:red;" ><b>List Price : <strike>' + listPriceMapByProductId.get(offer.Product__c) + ' ₺ </strike></b></p> <br/>'+
                     '<p style="font-size: 1.5rem;" ><b>Discount : ' + offer.Coupon__r.Name + '</b></p><br/>'+
                     '<p style="font-size: 1.5rem;" ><b>Discounted Price: ' + (listPriceMapByProductId.get(offer.Product__c) - discountMapByOfferId.get(offer.id)) +  ' ₺</b></p><br/> <br/>'+
                     '<p style="font-size: 1.5rem; color:green;" ><b>Your Earning: ' + discountMapByOfferId.get(offer.id) +  ' ₺</b></p><br/> <br/>'+
-                    '<a target="_blank" href="' + 'https://www.google.com' + '" style="font-size: 20px; background-color:blue; color: white;padding: 14px 25px; text-align: center;text-decoration: none;display: inline-block; border-radius: 12px;" onMouseOver="this.style.backgroundColor=\'royalblue\'" onMouseOut="this.style.backgroundColor=\'blue\'">Go To Product</a>'+
+                    '<a target="_blank" href="' + productLink + '" style="font-size: 20px; background-color:blue; color: white;padding: 14px 25px; text-align: center;text-decoration: none;display: inline-block; border-radius: 12px;" onMouseOver="this.style.backgroundColor=\'royalblue\'" onMouseOut="this.style.backgroundColor=\'blue\'">Go To Product</a>'+
                 '</div>'+
                 '<div style="flex: 1; margin-right: 20px; padding: 30px; order: 2; width: 30%;">'+
                     '<img src="' + imageUrlMapByProductId.get(offer.Product__c) + '" alt="Product 1" width: "25%">'+

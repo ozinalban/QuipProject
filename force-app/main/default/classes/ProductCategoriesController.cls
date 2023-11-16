@@ -1,4 +1,12 @@
 public without sharing class ProductCategoriesController {
+
+  @AuraEnabled(cacheable=true)
+  public static List<Category__c> getCategories(){
+    return [SELECT Id, Name, ParentCategory__c FROM Category__c];
+  }
+
+  /* TODO: Create Category Tree for using LWC Tree Grid component to display categories 
+   Below part is out of scenario 
   @AuraEnabled(cacheable=true)
   public static List<CategoryTreeNode> getCategoryTree() {
     List<CategoryTreeNode> categoryTree = new List<CategoryTreeNode>();
@@ -40,9 +48,9 @@ public without sharing class ProductCategoriesController {
     return categoryTree;
   }
 
+
+
   public class CategoryTreeNode {
-   /* @AuraEnabled
-    public Category__c category;*/
     @AuraEnabled
     public String id;
     @AuraEnabled
@@ -58,5 +66,5 @@ public without sharing class ProductCategoriesController {
       this.parentcategoryid = parentcategoryid;
       this.children = new List<CategoryTreeNode>();
     }
-  }
+  }*/
 }
